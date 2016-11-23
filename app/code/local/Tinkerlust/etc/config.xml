@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Tinkerlust_Loginseller>
+      <version>0.0.1</version>
+    </Tinkerlust_Loginseller>
+  </modules>
+  <frontend>
+    <routers>
+      <loginseller>
+        <use>standard</use>
+        <args>
+          <module>Tinkerlust_Loginseller</module>
+          <frontName>loginseller</frontName>
+        </args>
+      </loginseller>
+    </routers>
+    <layout>
+      <updates>
+        <loginseller>
+          <file>loginseller.xml</file>
+        </loginseller>
+      </updates>
+    </layout>
+  </frontend>
+</config>

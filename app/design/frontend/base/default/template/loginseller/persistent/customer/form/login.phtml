@@ -1,0 +1,136 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Customer login form template
+ *
+ * @see Mage_Customer_Block_Form_Login
+ */
+?>
+<div class="custom-login account-login">
+  <ul class="awesome-tabs">
+    <li class="tab-link current" data-tab="login-form">Buyer</li>
+    <li class="tab-link" data-tab="seller-login">Seller</li>
+  </ul>
+    <div class="page-title">
+        <h1><?php echo $this->__('Login or Create an Account') ?></h1>
+    </div>
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <?php /* Extensions placeholder */ ?>
+    <?php echo $this->getChildHtml('customer.form.login.extra')?>
+    <form id="seller-login" method="POST" action="http://vendor.tinkerlust.com/index.php?login_ok=yes" class="tab-content">
+      <div class="col-1">
+          <div class="content">
+            <ul class="form-list">
+                <li>
+                    <div class="input-box">
+                        <input type="text" name="username" value="" id="tinkerlust-seller-username" class="input-text validate-email" title="" placeholder="Email Address"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="input-box">
+                        <input type="password" name="password" class="input-text validate-password" id="tinkerlust-seller-password" title=""  placeholder="Password"/>
+                    </div>
+                </li>
+                <?php echo $this->getChildHtml('form.additional.info'); ?>
+                <p>Don't have an account? <a style="color:#e9098a" href="/sell">Start Sell</a></p>
+            </ul>
+              <p><?php echo $this->__('By becoming a sellers, you can sell your preloved items and get a lot of money.') ?></p>
+          </div>
+          <div class="buttons-set">
+              <button type="button" title="Seller Login" class="button seller-button" ><span><span><?php echo $this->__('Login as Seller') ?></span></span></button>
+          </div>
+          <div id="loading"></div>
+      </div>
+    </form>
+    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form" class="tab-content current">
+        <?php echo $this->getBlockHtml('formkey'); ?>
+        <div class="col2-set">
+            <div class="col-2 registered-users">
+                <div class="content">
+                    <ul class="form-list">
+                        <li>
+                            <div class="input-box">
+                                <input type="text" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" placeholder="Email Address"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-box">
+                                <input type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Password')) ?>"  placeholder="Password"/>
+                            </div>
+                        </li>
+                        <?php echo $this->getChildHtml('form.additional.info'); ?>
+                        <p>Don't have an account? <a style="color:#e9098a" href="<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>">Sign Up</a></p>
+                        <a href="<?php echo $this->getForgotPasswordUrl() ?>"><?php echo $this->__('Forgot Your Password?') ?></a>
+                    </ul>
+                    <!--<p class="required"><?php echo $this->__('* Required Fields') ?></p>-->
+                </div>
+            </div>
+        </div>
+        <div class="col2-set">
+            <div class="col-2 registered-users">
+                <div class="buttons-set">
+                    <button type="submit" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Login')) ?>" name="send" id="send2"><span><span><?php echo $this->__('Login as Buyer') ?></span></span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+    //<![CDATA[
+        var dataForm = new VarienForm('login-form', true);
+    //]]>
+
+    jQuery(function($) {
+      $('ul.awesome-tabs li').click(function(){
+        var tab_id = $(this).attr('data-tab');
+
+        $('ul.awesome-tabs li').removeClass('current');
+        $('.tab-content').removeClass('current');
+
+        $(this).addClass('current');
+        $("#"+tab_id).addClass('current');
+      })
+      $(".seller-button").on('click', function() {
+        $("#seller-login").submit();
+      });
+    });
+
+    /*function loginSeller() {
+      var username = document.getElementById('tinkerlust-seller-username').value;
+      var password = document.getElementById('tinkerlust-seller-password').value;
+      $.ajax({
+        type: 'POST',
+        url: 'http://vendor.tinkerlust.com/api_login.php?login_sd=yes',
+        data: "username="+username+"&password="+password,
+        success: function (data) {
+          window.location = "http://vendor.tinkerlust.com";
+        }
+      });
+    }*/
+    </script>
+</div>
